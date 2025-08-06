@@ -1,0 +1,132 @@
+---
+import { Image } from "astro:assets";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
+import svgLogo from "@assets/logo.svg";
+// import ProductMegaMenu from "@components/ProductMegaMenu.astro";
+
+interface Props {
+  type?: "default" | "transparent";
+}
+
+const { type = "default" } = Astro.props;
+---
+
+<header
+  id="header"
+  class="flex items-center justify-center backdrop-blur-[40px] shadow-[0_0_6px_0_#00000012]
+  z-20 fixed w-full top-0 left-0 right-0 bg-white transition-colors duration-300"
+>
+  <div
+    class="container relative flex items-center justify-between gap-4 px-4 py-3 lg:p-0 lg:py-7 md:px-0"
+  >
+    <div class="lg:hidden absolute">
+      <Bars3Icon
+        id="menu-icon"
+        className="text-primary-1 size-8 lg:hidden hover:cursor-pointer"
+      />
+      <XMarkIcon
+        id="close-icon"
+        className="text-primary-1 hidden size-8 lg:hidden hover:cursor-pointer"
+      />
+    </div>
+
+    <div
+      class="w-full lg:w-auto
+    flex items-center justify-center lg:justify-start"
+    >
+      <a href="/" class="inline-block">
+        <Image
+          class=`w-auto object-contain h-10 lg:h-10`
+          src={svgLogo}
+          alt="logo"
+        />
+      </a>
+    </div>
+
+    <nav
+      id="navigator-menu"
+      class="fixed z-30 top-[-100vh] left-0 right-0 lg:top-0 lg:left-auto lg:right-auto
+      flex flex-col items-center justify-center shadow lg:shadow-none p-6 py-8 lg:p-0 lg:py-0
+      transition-[top] duration-300 ease-in-out lg:transition-none
+      lg:static lg:flex-1 lg:flex lg:items-center lg:gap-4 bg-white lg:bg-transparent"
+      aria-label="Main navigation"
+    >
+      <ul
+        class=` container flex flex-col lg:flex-row items-center justify-end lg:justify-end gap-8 lg:gap-12 xl:gap-16
+        [&>li>a]:text-black lg:[&>li]:text-center
+        [&>li>a]:relative [&>li>a]:uppercase [&>li]:inline-block
+        font-light text-base xl:text-lg`
+      >
+        <li>
+          <a href={"/"}>Inicio</a>
+        </li>
+        <li>
+          <a href="/productos">Productos</a>
+        </li>
+        <li>
+          <a href={"/soporte"}>Galería</a>
+        </li>
+        <li class="">
+          <a
+            class="inline-block px-6 py-1 rounded-full bg-primary-1 !text-white"
+            href={"https://meetings.hubspot.com/jtorres44"}>Contacto</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <style>
+    @reference "../styles/global.css";
+
+    /* Colocar linea color roja del link activo por debajo del link, pero en desktop colocar la linea encima del link */
+    #navigator-menu a:is(.active) {
+      font-weight: 400;
+      /* padding-bottom: 0.25rem; */
+      border-bottom: 2px solid black;
+    }
+  </style>
+
+  <script>
+    // Verificar que el DOM este completamente cargado antes de ejecutar el script con la validacion de viewtransiottions de astro
+    // con astro-load-page
+
+    document.addEventListener("astro:page-load", () => {
+      // Toggle navigation menu
+      const barsIcon = document.querySelector("#menu-icon");
+      const closeIcon = document.querySelector("#close-icon");
+      const navigatorMenu = document.querySelector("#navigator-menu");
+      const navigatorLinks = document.querySelector("#navigator-menu ul");
+      const header = document.querySelector("#header");
+
+      if (navigatorMenu === null || barsIcon === null || closeIcon === null) {
+        throw new Error("Element not found");
+      }
+
+      barsIcon.addEventListener("click", () => {
+        barsIcon.classList.add("hidden");
+        closeIcon.classList.remove("hidden");
+        navigatorMenu.classList.remove("top-[-100vh]");
+        navigatorMenu.classList.add("top-16");
+      });
+
+      closeIcon.addEventListener("click", () => {
+        closeIcon.classList.add("hidden");
+        barsIcon.classList.remove("hidden");
+        navigatorMenu.classList.remove("top-16");
+        navigatorMenu.classList.add("top-[-100vh]");
+      });
+
+      const path = window.location.pathname;
+      const links = navigatorLinks?.querySelectorAll("a");
+
+      links?.forEach((link) => {
+        if (link.pathname === path) {
+          console.log(link.pathname);
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+</header>
