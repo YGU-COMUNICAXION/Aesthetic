@@ -5,7 +5,6 @@ interface ImgSet {
   main: any; // ImageMetadata
   thumbs: any[]; // ImageMetadata[]
 }
-
 interface Props {
   slug: string;
   title: string;
@@ -14,48 +13,50 @@ interface Props {
   tono: string;
   images: ImgSet;
 }
-
 const { slug, title, description, medidas, tono, images } = Astro.props;
 ---
 
 <article
-  class="group rounded-3xl border border-black/5 bg-white/90 shadow-[0_10px_30px_rgba(0,0,0,.06)]
-         backdrop-blur-md p-6 md:p-8 overflow-hidden"
+  class="group rounded-[42px] border border-[#E7E1D5] bg-white shadow-[0_14px_48px_rgba(0,0,0,.06)]
+         p-6 sm:p-8 lg:p-12 xl:p-16 overflow-hidden"
   aria-labelledby={`silla-${slug}`}
 >
-  <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 md:gap-10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-12">
     <!-- Texto + thumbs -->
-    <div class="lg:col-span-6 xl:col-span-5 space-y-4 md:space-y-6">
+    <div class="lg:col-span-5 flex flex-col justify-center">
       <h3
         id={`silla-${slug}`}
-        class="text-2xl md:text-3xl font-semibold tracking-tight"
+        class="font-marisa uppercase text-4xl sm:text-5xl lg:text-6xl mb-2"
       >
         {title}
       </h3>
 
-      <p class="text-[15px] leading-relaxed text-black/70">
+      <p
+        class="font-light text-base sm:text-lg lg:text-xl leading-relaxed
+         text-neutral-700 max-w-[40ch] mb-2"
+      >
         {description}
       </p>
 
-      <dl
-        class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-[15px]"
-      >
-        <div>
-          <dt class="font-semibold">Medidas</dt>
-          <dd class="text-black/70">{medidas}</dd>
-        </div>
-        <div>
-          <dt class="font-semibold">Tono</dt>
-          <dd class="text-black/70">{tono}</dd>
-        </div>
-      </dl>
+      <ul class="mt-1 space-y-2 text-base sm:text-lg lg:text-xl font-light">
+        <li class="flex items-baseline gap-3">
+          <span class="font-normal">Medidas</span>
+          <span class="text-neutral-400">|</span>
+          <span class="text-neutral-700">{medidas}</span>
+        </li>
+        <li class="flex items-baseline gap-3">
+          <span class="font-normal">Tono</span>
+          <span class="text-neutral-400">|</span>
+          <span class="text-neutral-700">{tono}</span>
+        </li>
+      </ul>
 
-      <div class="mt-4 flex items-center gap-4">
+      <div class="mt-4 flex items-start gap-5 lg:gap-8">
         {
           images.thumbs.map((thumb, i) => (
             <div
-              class="aspect-[4/3] w-24 rounded-xl overflow-hidden ring-1 ring-black/10 bg-white
-                   shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
+              class="w-24 sm:w-28 lg:w-48
+                    "
             >
               <Image
                 src={thumb}
@@ -69,21 +70,16 @@ const { slug, title, description, medidas, tono, images } = Astro.props;
     </div>
 
     <!-- Hero -->
-    <div class="lg:col-span-6 xl:col-span-7">
-      <div class="relative isolate">
-        <div
-          class="pointer-events-none absolute -inset-2 rounded-[26px] bg-gradient-to-tr from-black/5 to-transparent
-                 opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-        </div>
-        <div class="rounded-[22px] ring-1 ring-black/5 bg-white/70 p-3 md:p-4">
-          <div class="relative aspect-[4/3] md:aspect-[5/3]">
-            <Image
-              src={images.main}
-              alt={title}
-              class="absolute inset-0 h-full w-full object-contain"
-            />
-          </div>
+    <div class="lg:col-span-7">
+      <div
+        class="relative  p-3 sm:p-4"
+      >
+        <div class="relative aspect-[5/3] sm:aspect-[16/9]">
+          <Image
+            src={images.main}
+            alt={title}
+            class="absolute inset-0 h-full w-full object-contain"
+          />
         </div>
       </div>
     </div>

@@ -13,20 +13,22 @@ const pageDescription =
   <section class="container mx-auto px-4 lg:px-0 py-8 md:py-12">
     <!-- Título -->
     <header class="text-center mb-6 md:mb-8">
-      <h1 class="text-primary-1 text-lg md:text-xl font-normal">
+      <h1
+        class="text-black text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-relaxed"
+      >
         {pageTitle}
       </h1>
 
       <!-- Selector Sillas | Comedores -->
       <nav
-        class="mt-3 flex items-center justify-center gap-3 text-sm md:text-base"
+        class="mt-3 flex items-center justify-center gap-3 text-sm md:text- lg:text-xl xl:text-2xl"
       >
-        <span class="text-secondary-1 font-medium">Sillas</span>
-        <span class="text-neutral-400 select-none">|</span>
+        <span class="text-primary-1 font-bold">Sillas</span>
+        <span class="text-primary-1 select-none">|</span>
         <a
           href="/productos/comedores"
           rel="prefetch"
-          class="text-primary-1/70 hover:text-primary-1 underline-offset-4 hover:underline transition-colors"
+          class="text-primary-2 hover:text-primary-1 underline-offset-4 hover:underline transition-colors"
         >
           Comedores
         </a>
@@ -35,7 +37,15 @@ const pageDescription =
 
     <!-- Listado -->
     <div class="mt-10 space-y-8 md:space-y-10">
-      {sillas.map((item) => <SillaCard   />)}
+      {
+        sillas.map((item) => (
+          <SillaCard
+            {...item}
+            title={item.nombre}
+            description={item.descripcion}
+          />
+        ))
+      }
     </div>
   </section>
 </Layout>

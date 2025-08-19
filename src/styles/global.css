@@ -1,19 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @import "tailwindcss";
 
+/* Marisa Regular */
 @font-face {
-  font-family: Marisa;
+  font-family: "Marisa";
+  src: url("/fonts/marisa/Marisa.otf") format("opentype");
+  font-weight: 400;
   font-style: normal;
-  font-weight: 200 700;
   font-display: swap;
-  src: url("/fonts/marisa/Marisa.otf") format("otf");
+}
+/* Light */
+@font-face {
+  font-family: "Marisa";
+  src: url("/fonts/marisa/Marisa-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+/* Medium */
+@font-face {
+  font-family: "Marisa";
+  src: url("/fonts/marisa/Marisa-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+/* Bold */
+@font-face {
+  font-family: "Marisa";
+  src: url("/fonts/marisa/Marisa-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
   --font-sans: "Lato", sans-serif;
-  --font-serif: "Marisa", serif;
+  --font-marisa: "Marisa", serif;
 
-  --color-primary-1: #CEC3AA;
-  --color-primary-2: #A0A0A0;
-  --color-primary-3: #FCFCFA;
+  --color-primary-1: #cec3aa;
+  --color-primary-2: #a0a0a0;
+  --color-primary-3: #fcfcfa;
 }

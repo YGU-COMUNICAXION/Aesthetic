@@ -18,7 +18,9 @@ import ContactSection from "@components/ContactSection.astro";
   <section class="bg-white text-gray-800">
     <!-- Frase principal -->
     <div class="container mx-auto text-center py-16 lg:py-24 px-4">
-      <h2 class="font-normal text-xl lg:text-2xl xl:text-2xl">
+      <h2
+        class="font-normal text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl leading-relaxed"
+      >
         Transforma tus espacios con sillas y comedores que combinan<br />
         sofisticación, accesibilidad y funcionalidad
       </h2>
@@ -26,16 +28,18 @@ import ContactSection from "@components/ContactSection.astro";
 
     <!-- Primera fila: texto + imagen -->
     <div
-      class="container mx-auto grid gap-8 md:grid-cols-2 items-center py-12 lg:py-20 px-4"
+      class="container mx-auto grid gap-8 lg:gap-12 xl:gap-20 md:grid-cols-2 items-center py-12 lg:py-20 px-4"
     >
       <div
-        class="space-y-4 font-light text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed"
+        class="space-y-4 font-light text-base md:text-lg lg:text-xl xl:text-2xl leading-12"
       >
-        <p>
+        <p class="mb-6">
           En <span class="font-medium">Aesthetic Concept</span> nos especializamos
           en sillas y comedores en tonos neutros que responden a las necesidades
-          de arquitectos, diseñadores e interioristas para darle un toque único a
-          cualquier proyecto.
+          de arquitectos, diseñadores e interioristas para darle un <span
+            class="font-medium"
+            >toque único a cualquier proyecto.
+          </span>
         </p>
         <p>
           Nuestros diseños son de la más <span class="font-medium"
@@ -54,7 +58,7 @@ import ContactSection from "@components/ContactSection.astro";
 
     <!-- Segunda fila: imagen + texto -->
     <div
-      class="container mx-auto grid gap-8 md:grid-cols-2 items-center py-12 lg:py-20 px-4"
+      class="container mx-auto grid gap-8 lg:gap-12 xl:gap-20 md:grid-cols-2 items-center py-12 lg:py-20 px-4"
     >
       <Image
         src={img2}
@@ -62,16 +66,18 @@ import ContactSection from "@components/ContactSection.astro";
         class="w-full h-auto rounded-2xl object-cover shadow-lg"
       />
       <div
-        class="space-y-4 font-light text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed"
+        class="space-y-4 font-light text-base md:text-lg lg:text-xl xl:text-2xl leading-12"
       >
         <p>
           Ofrecemos <span class="font-medium">precios competitivos</span> para que
           nuestros clientes accedan al diseño de alta gama sin comprometer su presupuesto.
         </p>
         <p>
-          Con una pasión por el <span class="font-medium">diseño</span> y un compromiso
-          con la <span class="font-medium">accesibilidad</span>, en Aesthetic
-          convertimos ideas en realidad, creando espacios que inspiran.
+          Con una pasión por el diseño y un compromiso con la accesibilidad,
+          <span class="font-medium"
+            >en Aesthetic convertimos ideas en realidad, creando espacios que
+            inspiran.</span
+          >
         </p>
       </div>
     </div>
