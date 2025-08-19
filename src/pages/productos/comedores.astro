@@ -1,0 +1,107 @@
+---
+import { Image } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import SillaCard from "@components/SillaCard.astro";
+import { sillas } from "@assets/data/sillas.ts";
+
+const pageTitle = "Comedores de alta gama que se integran a tus proyectos";
+const pageDescription = "Catálogo de comedores Aesthetic";
+
+/* IMPORTA TUS IMÁGENES (usa tus rutas reales) */
+import Alessano from "@assets/img/comedores/alessano.webp";
+import Cento from "@assets/img/comedores/cento.webp";
+import ContactSection from "@components/ContactSection.astro";
+
+/** “JSON” embebido */
+type Item = {
+  slug: string;
+  title: string;
+  description: string;
+  medidas: string;
+  image: any; // ImageMetadata
+};
+
+const comedores: Item[] = [
+  {
+    slug: "alessano-extendible",
+    title: "COMEDOR ALESSANO EXTENDIBLE",
+    description: "Tapa de cerámica con base en PU.",
+    medidas: "140 x 85 cm / 200 x 85 cm",
+    image: Alessano,
+  },
+  {
+    slug: "cento-extendible",
+    title: "COMEDOR CENTO EXTENDIBLE",
+    description: "Tapa de cerámica con base en PU.",
+    medidas: "130 cm diam. / 130 x 80 cm",
+    image: Cento,
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="container mx-auto px-4 lg:px-0 py-8 md:py-12">
+    <!-- Título -->
+    <header class="text-center mb-6 md:mb-8 lg:mb-16 xl:mb-20">
+      <h1
+        class="text-black text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-relaxed"
+      >
+        {pageTitle}
+      </h1>
+
+      <!-- Selector Sillas | Comedores -->
+      <nav
+        class="mt-3 flex items-center justify-center gap-3
+        font-light text-sm md:text- lg:text-xl xl:text-2xl"
+      >
+        <a
+          href="/productos/sillas"
+          class="text-primary-2 hover:text-primary-1 underline-offset-4 hover:underline transition-colors"
+          >Sillas</a
+        >
+        <span class="text-primary-1 select-none">|</span>
+        <span class="text-primary-1 font-bold"> Comedores </span>
+      </nav>
+    </header>
+
+    <!-- LISTADO -->
+    <section
+      class="container mx-auto px-4 lg:px-0 space-y-8 md:space-y-10 mb-32 lg:mb-64"
+    >
+      {
+        comedores.map((c) => (
+          <article class="mx-auto mb-10 lg:mb-14">
+            <div class="relative rounded-3xl overflow-hidden">
+              <Image
+                src={c.image}
+                alt={c.title}
+                class="w-full h-auto object-cover"
+              />
+            </div>
+
+            <header class="mt-5 md:mt-6">
+              <h2
+                class="font-marisa uppercase
+              text-[1.15rem] sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-[0.95]"
+              >
+                {c.title}
+              </h2>
+
+              <p class="mt-3 font-light text-base lg:text-lg text-neutral-600">
+                {c.description}
+              </p>
+
+              <p class="mt-3 text-base lg:text-lg font-light">
+                <span class="font-normal">Medidas</span>
+                <span class="mx-1 text-neutral-400">|</span>
+                <span class="text-neutral-700">{c.medidas}</span>
+              </p>
+            </header>
+          </article>
+        ))
+      }
+    </section>
+
+    <ContactSection />
+  </section>
+</Layout>

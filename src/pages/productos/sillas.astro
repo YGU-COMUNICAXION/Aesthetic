@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import SillaCard from "@components/SillaCard.astro";
 import { sillas } from "@assets/data/sillas.ts";
+import ContactSection from "@components/ContactSection.astro";
 
 const pageTitle = "Sillas de alta gama que se integran a tus proyectos";
 const pageDescription =
@@ -12,7 +13,7 @@ const pageDescription =
 <Layout title={pageTitle} description={pageDescription}>
   <section class="container mx-auto px-4 lg:px-0 py-8 md:py-12">
     <!-- Título -->
-    <header class="text-center mb-6 md:mb-8">
+    <header class="text-center mb-6 md:mb-8 lg:mb-16 xl:mb-20">
       <h1
         class="text-black text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light leading-relaxed"
       >
@@ -21,7 +22,8 @@ const pageDescription =
 
       <!-- Selector Sillas | Comedores -->
       <nav
-        class="mt-3 flex items-center justify-center gap-3 text-sm md:text- lg:text-xl xl:text-2xl"
+        class="mt-3 flex items-center justify-center gap-3
+        font-light text-sm md:text- lg:text-xl xl:text-2xl"
       >
         <span class="text-primary-1 font-bold">Sillas</span>
         <span class="text-primary-1 select-none">|</span>
@@ -48,4 +50,6 @@ const pageDescription =
       }
     </div>
   </section>
+
+  <ContactSection />
 </Layout>
