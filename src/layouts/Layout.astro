@@ -7,7 +7,7 @@ import BtnWhatsApp from "./BtnWhatsApp.astro";
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -34,3 +34,19 @@ import BtnWhatsApp from "./BtnWhatsApp.astro";
     height: 100%;
   }
 </style>
+
+<script is:inline>
+  // Fallback básico para navegadores sin scroll-behavior
+  if (!("scrollBehavior" in document.documentElement.style)) {
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href")!;
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  }
+</script>
