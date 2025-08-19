@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import SillaCard from "@components/SillaCard.astro";
+import { sillas } from "@assets/data/sillas.ts";
+
+const pageTitle = "Sillas de alta gama que se integran a tus proyectos";
+const pageDescription =
+  "Catálogo de sillas Aesthetic Concept: medidas, tonos y vistas de cada modelo.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="container mx-auto px-4 lg:px-0 py-8 md:py-12">
+    <!-- Título -->
+    <header class="text-center mb-6 md:mb-8">
+      <h1 class="text-primary-1 text-lg md:text-xl font-normal">
+        {pageTitle}
+      </h1>
+
+      <!-- Selector Sillas | Comedores -->
+      <nav
+        class="mt-3 flex items-center justify-center gap-3 text-sm md:text-base"
+      >
+        <span class="text-secondary-1 font-medium">Sillas</span>
+        <span class="text-neutral-400 select-none">|</span>
+        <a
+          href="/productos/comedores"
+          rel="prefetch"
+          class="text-primary-1/70 hover:text-primary-1 underline-offset-4 hover:underline transition-colors"
+        >
+          Comedores
+        </a>
+      </nav>
+    </header>
+
+    <!-- Listado -->
+    <div class="mt-10 space-y-8 md:space-y-10">
+      {sillas.map((item) => <SillaCard   />)}
+    </div>
+  </section>
+</Layout>
