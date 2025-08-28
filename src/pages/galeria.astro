@@ -1,18 +1,23 @@
 ---
 /* Ajusta la ruta de tu layout */
 import Layout from "@layouts/Layout.astro";
-import { Image } from "astro:assets";
+import GalleryCard from "@components/GalleryCard.astro";
 
 /* Importa tus imágenes reales */
-import ExpoHabitat from "@assets/img/galleria/habitat.jpg";
-import ExpoMueble from "@assets/img/galleria/mueble.jpg";
+import ExpoHabitat from "@assets/img/galleria/habitat.webp";
+import ExpoMueble from "@assets/img/galleria/mueble.webp";
+import ExpoMuebleII from "@assets/img/galleria/muebleII.webp";
+import ExpoMuebleIII from "@assets/img/galleria/muebleIII.webp";
+import ExpoMuebleIV from "@assets/img/galleria/muebleIV.webp";
+
 import ContactSection from "@components/ContactSection.astro";
 
 type GalleryItem = {
   slug: string;
-  title: string; // título visible bajo la imagen
-  subtitle: string; // sede + fecha
-  image: any; // ImageMetadata
+  title: string;
+  subtitle: string;
+  images?: any[]; // Array de ImageMetadata
+  videoId?: string; // YouTube video ID
 };
 
 const items: GalleryItem[] = [
@@ -20,13 +25,19 @@ const items: GalleryItem[] = [
     slug: "expo-habitat-cdmx-2025",
     title: "EXPO HÁBITAT - CDMX",
     subtitle: "Mayo 2025",
-    image: ExpoHabitat,
+    images: [ExpoHabitat],
   },
   {
     slug: "expo-mueble-gdl-2025",
     title: "EXPO MUEBLE - GDL",
     subtitle: "Febrero 2025",
-    image: ExpoMueble,
+    images: [ExpoMueble, ExpoMuebleII, ExpoMuebleIII, ExpoMuebleIV],
+  },
+  {
+    slug: "expo-mueble-gdl-2025",
+    title: "EXPO MUEBLE - GDL",
+    subtitle: "Febrero 2025",
+    videoId: "8kAqQB4elL4",
   },
 ];
 ---
@@ -47,18 +58,41 @@ const items: GalleryItem[] = [
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
       {
         items.map((it) => (
-          <figure class="overflow-hidden">
-            <Image
-              src={it.image}
-              alt={`${it.title} — ${it.subtitle}`}
-              class="w-full aspect-square object-cover rounded-3xl mb-8"
-            />
-            <figcaption class="text-center">
-              <p class="font-light text-lg lg:text-xl">
-                {it.title} <span class="mx-1">-</span> {it.subtitle}
-              </p>
-            </figcaption>
-          </figure>
+          <GalleryCard
+            title={it.title}
+            subtitle={it.subtitle}
+            images={it.images}
+            videoId={it.videoId}
+          />
+          // <figure class="overflow-hidden">
+          //   {it.images && it.images.length > 0 && (
+          //     <div class="flex flex-col gap-4">
+          //       {it.images.map((img, idx) => (
+          //         <Image
+          //           src={img}
+          //           alt={`${it.title} — ${it.subtitle} — Imagen ${idx + 1}`}
+          //           class="w-full aspect-square object-cover rounded-3xl mb-4"
+          //         />
+          //       ))}
+          //     </div>
+          //   )}
+          //   {it.videoId && (
+          //     <div class="aspect-video w-full rounded-3xl overflow-hidden mb-4">
+          //       <iframe
+          //         src={`https://www.youtube.com/embed/${it.videoId}`}
+          //         title={it.title}
+          //         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          //         allowfullscreen
+          //         class="w-full h-full"
+          //       />
+          //     </div>
+          //   )}
+          //   <figcaption class="text-center">
+          //     <p class="font-light text-lg lg:text-xl">
+          //       {it.title} <span class="mx-1">-</span> {it.subtitle}
+          //     </p>
+          //   </figcaption>
+          // </figure>
         ))
       }
     </div>

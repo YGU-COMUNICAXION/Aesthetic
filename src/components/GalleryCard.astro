@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  images?: any[]; // Array de ImageMetadata
+  videoId?: string;
+}
+
+const { title, subtitle, images = [], videoId } = Astro.props;
+---
+
+<figure class="overflow-hidden">
+  {
+    videoId ? (
+      <div class="aspect-video w-full rounded-3xl overflow-hidden mb-4">
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+        />
+      </div>
+    ) : images.length === 1 ? (
+      <Image
+        src={images[0]}
+        alt={`${title} — ${subtitle} — Imagen 1`}
+        class="w-full aspect-square object-cover rounded-3xl mb-4 transition-all duration-700"
+      />
+    ) : (
+      images.length > 1 && (
+        <gallery-slider images={JSON.stringify(images)} class="w-full block" />
+      )
+    )
+  }
+  <figcaption class="text-center">
+    <p class="font-light text-lg lg:text-xl">
+      {title}
+      <span class="mx-1">-</span>
+      {subtitle}
+    </p>
+  </figcaption>
+</figure>
+
+<script>
+  class GallerySlider extends HTMLElement {
+    [x: string]: any;
+    connectedCallback() {
+      this.images = JSON.parse(this.getAttribute("images") || "[]");
+      this.idx = 0;
+      this.fade = false;
+      this.render();
+      this.timer = setInterval(() => this.next(), 3500);
+    }
+    disconnectedCallback() {
+      clearInterval(this.timer);
+    }
+    next() {
+      this.fade = true;
+      this.render();
+      setTimeout(() => {
+        this.idx = (this.idx + 1) % this.images.length;
+        this.fade = false;
+        this.render();
+      }, 400); // Duración del fade
+    }
+    render() {
+      this.innerHTML = "";
+      if (!this.images.length) return;
+      const img = document.createElement("img");
+      img.src = this.images[this.idx].src;
+      img.alt = this.images[this.idx].alt || "";
+      img.className =
+        "w-full aspect-square object-cover rounded-3xl mb-4 transition-all duration-700" +
+        (this.fade ? " opacity-0" : " opacity-100");
+      this.appendChild(img);
+    }
+  }
+  if (!customElements.get("gallery-slider")) {
+    customElements.define("gallery-slider", GallerySlider);
+  }
+</script>
