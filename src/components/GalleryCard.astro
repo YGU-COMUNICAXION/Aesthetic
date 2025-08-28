@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 interface Props {
   title: string;
   subtitle: string;
-  images?: any[]; // Array de ImageMetadata
+  images?: any[];
   videoId?: string;
 }
 
@@ -50,7 +50,8 @@ const { title, subtitle, images = [], videoId } = Astro.props;
     connectedCallback() {
       this.images = JSON.parse(this.getAttribute("images") || "[]");
       this.idx = 0;
-      this.fade = false;
+      this.nextIdx = 1 % this.images.length;
+      this.showing = 0; // 0 o 1, cuál imagen está visible
       this.render();
       this.timer = setInterval(() => this.next(), 3500);
     }
@@ -58,24 +59,40 @@ const { title, subtitle, images = [], videoId } = Astro.props;
       clearInterval(this.timer);
     }
     next() {
-      this.fade = true;
-      this.render();
+      const imgs = this.querySelectorAll("img");
+      if (imgs.length < 2) return;
+      imgs[this.showing].classList.remove("opacity-100");
+      imgs[this.showing].classList.add("opacity-0");
+      imgs[1 - this.showing].src =
+        this.images[(this.idx + 1) % this.images.length].src;
+      imgs[1 - this.showing].alt =
+        this.images[(this.idx + 1) % this.images.length].alt || "";
       setTimeout(() => {
+        imgs[1 - this.showing].classList.remove("opacity-0");
+        imgs[1 - this.showing].classList.add("opacity-100");
         this.idx = (this.idx + 1) % this.images.length;
-        this.fade = false;
-        this.render();
-      }, 400); // Duración del fade
+        this.showing = 1 - this.showing;
+      }, 50);
     }
     render() {
       this.innerHTML = "";
       if (!this.images.length) return;
-      const img = document.createElement("img");
-      img.src = this.images[this.idx].src;
-      img.alt = this.images[this.idx].alt || "";
-      img.className =
-        "w-full aspect-square object-cover rounded-3xl mb-4 transition-all duration-700" +
-        (this.fade ? " opacity-0" : " opacity-100");
-      this.appendChild(img);
+      // Dos imágenes superpuestas para el fade
+      const imgA = document.createElement("img");
+      imgA.src = this.images[0].src;
+      imgA.alt = this.images[0].alt || "";
+      imgA.className =
+        "absolute top-0 left-0 w-full aspect-square object-cover rounded-3xl mb-4 transition-opacity duration-700 opacity-100";
+      const imgB = document.createElement("img");
+      imgB.src = this.images[1 % this.images.length].src;
+      imgB.alt = this.images[1 % this.images.length].alt || "";
+      imgB.className =
+        "absolute top-0 left-0 w-full aspect-square object-cover rounded-3xl mb-4 transition-opacity duration-700 opacity-0";
+      const wrapper = document.createElement("div");
+      wrapper.className = "relative w-full aspect-square";
+      wrapper.appendChild(imgA);
+      wrapper.appendChild(imgB);
+      this.appendChild(wrapper);
     }
   }
   if (!customElements.get("gallery-slider")) {
