@@ -5,7 +5,7 @@ import { useForm, ValidationError } from "@formspree/react";
 function CatalogoButton({ children, ...props }) {
   return (
     <a
-      href="/catalogo.pdf"
+      href="https://drive.google.com/file/d/1YCKV_gW459CVV1tE--MGH-QGsD4gicjb/view?usp=sharing"
       target="_blank"
       className="inline-flex items-center gap-2 bg-[#C9BCA4] text-white px-6 py-2 rounded-full
         text-sm md:text-base shadow-sm hover:opacity-90 hover:scale-105 hover:cursor-pointer
