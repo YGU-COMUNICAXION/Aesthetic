@@ -79,6 +79,13 @@ for (let i = 0; i < images.length; i++) {
       this.imgs = JSON.parse(this.getAttribute("data-images") || "[]");
       this.idx = 0;
       if (!this.imgs.length) return;
+
+      // Precarga todas las imágenes
+      this.imgs.forEach((img) => {
+        const preload = new window.Image();
+        preload.src = img.src;
+      });
+
       this.style.backgroundImage = `url(${this.imgs[0].src})`;
       if (this.imgs.length > 1) {
         this.interval = setInterval(() => {
